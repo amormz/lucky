@@ -1,10 +1,12 @@
 package pers.zymir.lucky.po;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import pers.zymir.lucky.enums.ActivityStateEnum;
 
 @Data
-public class Activity {
+@EqualsAndHashCode(callSuper = true)
+public class Activity extends BaseEntity {
 
     private Long id;
 
