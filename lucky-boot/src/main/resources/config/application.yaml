@@ -1,0 +1,3 @@
+spring:
+  banner:
+    location: classpath:banner/lucky-banner.txt
