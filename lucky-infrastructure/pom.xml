@@ -29,6 +29,11 @@
             <artifactId>mysql-connector-java</artifactId>
             <version>5.1.49</version>
         </dependency>
+
+        <dependency>
+            <groupId>pers.zymir</groupId>
+            <artifactId>lucky-support</artifactId>
+        </dependency>
     </dependencies>
 
 </project>
