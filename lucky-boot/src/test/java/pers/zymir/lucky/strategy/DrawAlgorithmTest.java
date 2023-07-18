@@ -6,8 +6,8 @@ import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import pers.zymir.lucky.LuckyApp;
-import pers.zymir.lucky.domain.strategy.service.DrawAlgorithmFactory;
-import pers.zymir.lucky.domain.strategy.service.IDrawAlgorithm;
+import pers.zymir.lucky.domain.strategy.service.algorithm.DrawAlgorithmFactory;
+import pers.zymir.lucky.domain.strategy.service.algorithm.IDrawAlgorithm;
 import pers.zymir.lucky.enums.StrategyModeEnum;
 
 @SpringBootTest(classes = LuckyApp.class)
