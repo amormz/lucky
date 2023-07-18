@@ -2,11 +2,11 @@ package pers.zymir.lucky.domain.strategy.service.draw;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import pers.zymir.lucky.domain.strategy.model.dto.AwardRateDTO;
 import pers.zymir.lucky.domain.strategy.model.dto.StrategyConfigDTO;
 import pers.zymir.lucky.domain.strategy.model.req.DrawReq;
 import pers.zymir.lucky.domain.strategy.model.res.DrawResult;
 import pers.zymir.lucky.domain.strategy.repository.IStrategyRepository;
+import pers.zymir.lucky.domain.strategy.service.algorithm.DrawAlgorithmCache;
 import pers.zymir.lucky.domain.strategy.service.algorithm.DrawAlgorithmFactory;
 import pers.zymir.lucky.domain.strategy.service.algorithm.IDrawAlgorithm;
 import pers.zymir.lucky.exception.BusinessException;
@@ -14,7 +14,9 @@ import pers.zymir.lucky.exception.ResultCode;
 import pers.zymir.lucky.po.Strategy;
 import pers.zymir.lucky.po.StrategyDetail;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Objects;
 
 @Slf4j
 public abstract class AbstractDrawService implements IDrawService {
@@ -30,7 +32,7 @@ public abstract class AbstractDrawService implements IDrawService {
         StrategyConfigDTO strategyConfigDTO = strategyRepository.queryStrategyConfig(strategyId);
         List<StrategyDetail> strategyDetails = strategyConfigDTO.getStrategyDetails();
 
-        checkAndInitAwardRate(strategyId, strategyDetails);
+        DrawAlgorithmCache.checkAndInitAwardRate(strategyId, strategyDetails);
 
         // 2.TODO 查询空库存奖品/风控
 
@@ -55,19 +57,5 @@ public abstract class AbstractDrawService implements IDrawService {
         }
 
         return drawResult;
-    }
-
-    private void checkAndInitAwardRate(Long strategyId, List<StrategyDetail> strategyDetails) {
-        Map<Long, List<AwardRateDTO>> awardRateCache = IDrawAlgorithm.STRATEGY_AWARD_RATE_MAPPING;
-        if (awardRateCache.containsKey(strategyId)) {
-            return;
-        }
-
-        List<AwardRateDTO> awardRates = new ArrayList<>(strategyDetails.size());
-        for (StrategyDetail strategyDetail : strategyDetails) {
-            awardRates.add(new AwardRateDTO(strategyDetail.getAwardId(), strategyDetail.getAwardRate()));
-        }
-
-        awardRateCache.put(strategyId, awardRates);
     }
 }

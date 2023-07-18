@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import pers.zymir.lucky.domain.strategy.model.dto.AwardRateDTO;
 import pers.zymir.lucky.domain.strategy.repository.IStrategyRepository;
 import pers.zymir.lucky.domain.strategy.service.IDrawAlgorithm;
+import pers.zymir.lucky.domain.strategy.service.algorithm.DrawAlgorithmCache;
 import pers.zymir.lucky.enums.StrategyModeEnum;
 
 import java.math.BigDecimal;
@@ -24,7 +25,7 @@ public class MultiDrawAlgorithm implements IDrawAlgorithm {
 
     @Override
     public Long randomDraw(long strategyId, Set<Long> excludeAwardIds) {
-        List<AwardRateDTO> awardRates = strategyRepository.listAwardRates(strategyId);
+        List<AwardRateDTO> awardRates = DrawAlgorithmCache.listAwardRatesFromCache(strategyId);
 
         // 1.排除不参与抽奖奖品
         excludeAward(excludeAwardIds, awardRates);

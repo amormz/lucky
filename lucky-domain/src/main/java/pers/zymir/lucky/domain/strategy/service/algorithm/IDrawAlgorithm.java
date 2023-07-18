@@ -1,19 +1,13 @@
 package pers.zymir.lucky.domain.strategy.service.algorithm;
 
-import pers.zymir.lucky.domain.strategy.model.dto.AwardRateDTO;
 import pers.zymir.lucky.enums.StrategyModeEnum;
 
-import java.util.List;
-import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * 抽奖算法
  */
 public interface IDrawAlgorithm {
-
-    Map<Long, List<AwardRateDTO>> STRATEGY_AWARD_RATE_MAPPING = new ConcurrentHashMap<>();
 
     /**
      * 随机进行抽奖
