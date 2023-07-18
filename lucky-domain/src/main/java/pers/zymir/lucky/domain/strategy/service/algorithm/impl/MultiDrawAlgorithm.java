@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import pers.zymir.lucky.domain.strategy.model.dto.AwardRateDTO;
 import pers.zymir.lucky.domain.strategy.repository.IStrategyRepository;
+import pers.zymir.lucky.domain.strategy.service.algorithm.DrawAlgorithmCache;
 import pers.zymir.lucky.domain.strategy.service.algorithm.IDrawAlgorithm;
 import pers.zymir.lucky.enums.StrategyModeEnum;
 
@@ -25,7 +26,7 @@ public class MultiDrawAlgorithm implements IDrawAlgorithm {
 
     @Override
     public Long randomDraw(long strategyId, Set<Long> excludeAwardIds) {
-        List<AwardRateDTO> awardRates = STRATEGY_AWARD_RATE_MAPPING.get(strategyId);
+        List<AwardRateDTO> awardRates = DrawAlgorithmCache.listAwardRatesFromCache(strategyId);
         Assert.isTrue(CollUtil.isNotEmpty(awardRates));
 
         // 1.排除不参与抽奖奖品
