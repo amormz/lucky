@@ -1,10 +1,9 @@
 package pers.zymir.lucky.exception;
 
-import pers.zymir.common.exception.BaseException;
-import pers.zymir.common.resp.Responsive;
+import pers.zymir.basic.result.BusinessStatus;
 
-public class BusinessException extends BaseException {
-    public BusinessException(Responsive responsive) {
-        super(responsive);
+public class BusinessException extends RuntimeException {
+    public BusinessException(BusinessStatus businessStatus) {
+        super(businessStatus.message());
     }
 }

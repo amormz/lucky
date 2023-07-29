@@ -1,12 +1,10 @@
 package pers.zymir.lucky.exception;
 
 import lombok.AllArgsConstructor;
-import pers.zymir.common.resp.Responsive;
+import pers.zymir.basic.result.BusinessStatus;
 
 @AllArgsConstructor
-public enum ResultCode implements Responsive {
-    SUCCESS("200", "成功"),
-
+public enum ResultCode implements BusinessStatus {
     DRAW_ALGORITHM_NOT_FOUND("50001", "未找到对应抽奖算法");
 
     private final String code;
@@ -14,12 +12,12 @@ public enum ResultCode implements Responsive {
     private final String message;
 
     @Override
-    public String getCode() {
+    public String code() {
         return code;
     }
 
     @Override
-    public String getMessage() {
+    public String message() {
         return message;
     }
 }
