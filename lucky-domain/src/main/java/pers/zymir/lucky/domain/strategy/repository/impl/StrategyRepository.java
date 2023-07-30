@@ -1,9 +1,11 @@
 package pers.zymir.lucky.domain.strategy.repository.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import pers.zymir.lucky.dao.StrategyDAO;
-import pers.zymir.lucky.dao.StrategyDetailDAO;
+import pers.zymir.lucky.dao.StrategyDetailMapper;
+import pers.zymir.lucky.dao.StrategyMapper;
 import pers.zymir.lucky.domain.strategy.model.dto.StrategyConfigDTO;
 import pers.zymir.lucky.domain.strategy.repository.IStrategyRepository;
 import pers.zymir.lucky.po.Strategy;
@@ -15,15 +17,20 @@ import java.util.List;
 public class StrategyRepository implements IStrategyRepository {
 
     @Autowired
-    private StrategyDAO strategyDAO;
+    private StrategyMapper strategyMapper;
 
     @Autowired
-    private StrategyDetailDAO strategyDetailDAO;
+    private StrategyDetailMapper strategyDetailMapper;
 
     @Override
     public StrategyConfigDTO queryStrategyConfig(Long strategyId) {
-        Strategy strategy = strategyDAO.selectByStrategyId(strategyId);
-        List<StrategyDetail> strategyDetails = strategyDetailDAO.selectByStrategyId(strategyId);
+        LambdaQueryWrapper<Strategy> strategyLambdaQueryWrapper = Wrappers.lambdaQuery(Strategy.class)
+                .eq(Strategy::getStrategyId, strategyId);
+        Strategy strategy = strategyMapper.selectOne(strategyLambdaQueryWrapper);
+
+        LambdaQueryWrapper<StrategyDetail> strategyDetailLambdaQueryWrapper = Wrappers.lambdaQuery(StrategyDetail.class)
+                .eq(StrategyDetail::getStrategyId, strategyId);
+        List<StrategyDetail> strategyDetails = strategyDetailMapper.selectList(strategyDetailLambdaQueryWrapper);
 
         StrategyConfigDTO strategyConfigDTO = new StrategyConfigDTO();
         strategyConfigDTO.setStrategy(strategy);

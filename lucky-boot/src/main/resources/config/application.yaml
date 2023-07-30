@@ -6,8 +6,3 @@ spring:
     password: lzm549468
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://192.168.31.88:3306/lottery
-
-# mybatis
-mybatis:
-  configuration:
-    map-underscore-to-camel-case: true
