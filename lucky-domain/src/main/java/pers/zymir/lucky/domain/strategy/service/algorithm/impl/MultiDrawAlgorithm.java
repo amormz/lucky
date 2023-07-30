@@ -38,18 +38,22 @@ public class MultiDrawAlgorithm implements IDrawAlgorithm {
         }
 
         // 3.当前为总体概率算法 只剩下一个奖品 直接中奖该奖品
-        if (CollUtil.size(awardRates) == 1) {
+        if (isOnlyRemainOneAward(awardRates)) {
             AwardRateDTO awardRateDTO = awardRates.get(0);
             return awardRateDTO.getAwardId();
         }
 
-        // 4.重新分配概率
-        reallocateProbability(awardRates);
+        // 4.按照剩余概率 重新分配概率为100%
+        redistributeRemainingProbabilities(awardRates);
 
         // 5.执行抽奖
         Long awardId = executeDraw(awardRates);
         log.info("总体概率算法执行成功，中奖奖品ID: {}, 策略ID: {}", awardId, strategyId);
         return awardId;
+    }
+
+    private boolean isOnlyRemainOneAward(List<AwardRateDTO> awardRates) {
+        return CollUtil.size(awardRates) == 1;
     }
 
     private Long executeDraw(List<AwardRateDTO> awardRates) {
@@ -79,7 +83,7 @@ public class MultiDrawAlgorithm implements IDrawAlgorithm {
         return RandomUtil.getSecureRandom().nextInt(1, 101);
     }
 
-    private void reallocateProbability(List<AwardRateDTO> awardRates) {
+    private void redistributeRemainingProbabilities(List<AwardRateDTO> awardRates) {
         BigDecimal currentTotalProbability = calculateCurrentTotalProbability(awardRates);
         for (AwardRateDTO awardRate : awardRates) {
             BigDecimal rate = awardRate.getAwardRate();
