@@ -14,7 +14,6 @@ import pers.zymir.lucky.exception.ResultCode;
 import pers.zymir.lucky.po.Strategy;
 import pers.zymir.lucky.po.StrategyDetail;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -32,10 +31,9 @@ public abstract class AbstractDrawService implements IDrawService {
         Long strategyId = drawReq.getStrategyId();
         StrategyConfigDTO strategyConfigDTO = strategyRepository.queryStrategyConfig(strategyId);
         List<StrategyDetail> strategyDetails = strategyConfigDTO.getStrategyDetails();
-
         DrawAlgorithmCache.checkAndInitAwardRate(strategyId, strategyDetails);
 
-        // 2.TODO 查询空库存奖品/风控
+        // 2.查询空库存奖品/风控
         Set<Long> excludeAwardIds = queryExcludeAwardIds(strategyId);
 
         // 3.执行抽奖算法
@@ -46,19 +44,18 @@ public abstract class AbstractDrawService implements IDrawService {
             throw new BusinessException(ResultCode.DRAW_ALGORITHM_NOT_FOUND);
         }
 
+        // 4.封装结果
         Long awardId = drawAlgorithm.randomDraw(strategyId, excludeAwardIds);
         boolean isLucky = Objects.nonNull(awardId);
-
-        // 4.封装结果
         DrawResult drawResult = new DrawResult();
         drawResult.setIsLucky(isLucky);
         drawResult.setAwardId(awardId);
         if (isLucky) {
+            // TODO 如果中奖 设置奖品名称
             drawResult.setAwardName("");
         }
-
         return drawResult;
     }
 
-    abstract Set<Long> queryExcludeAwardIds(Long strategyId);
+    protected abstract Set<Long> queryExcludeAwardIds(Long strategyId);
 }
