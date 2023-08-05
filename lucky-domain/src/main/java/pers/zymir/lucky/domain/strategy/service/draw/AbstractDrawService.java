@@ -43,9 +43,13 @@ public abstract class AbstractDrawService implements IDrawService {
             log.warn("执行抽奖算法失败，未找到对应算法，模式：{}", strategy.getStrategyMode());
             throw new BusinessException(ResultCode.DRAW_ALGORITHM_NOT_FOUND);
         }
+        Long awardId = drawAlgorithm.randomDraw(strategyId, excludeAwardIds);
 
         // 4.封装结果
-        Long awardId = drawAlgorithm.randomDraw(strategyId, excludeAwardIds);
+        return buildDrawResult(awardId);
+    }
+
+    private DrawResult buildDrawResult(Long awardId) {
         boolean isLucky = Objects.nonNull(awardId);
         DrawResult drawResult = new DrawResult();
         drawResult.setIsLucky(isLucky);
