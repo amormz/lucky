@@ -28,24 +28,19 @@ public class MultiDrawAlgorithm implements IDrawAlgorithm {
     public Long randomDraw(long strategyId, Set<Long> excludeAwardIds) {
         List<AwardRateDTO> awardRates = DrawAlgorithmCache.listAwardRatesFromCache(strategyId);
         Assert.isTrue(CollUtil.isNotEmpty(awardRates));
-
         // 1.排除不参与抽奖奖品
         excludeAward(excludeAwardIds, awardRates);
-
         // 2.空奖品返回未中奖
         if (CollUtil.isEmpty(awardRates)) {
             return null;
         }
-
         // 3.当前为总体概率算法 只剩下一个奖品 直接中奖该奖品
         if (isOnlyRemainOneAward(awardRates)) {
             AwardRateDTO awardRateDTO = awardRates.get(0);
             return awardRateDTO.getAwardId();
         }
-
         // 4.按照剩余概率 重新分配概率为100%
         redistributeRemainingProbabilities(awardRates);
-
         // 5.执行抽奖
         Long awardId = executeDraw(awardRates);
         log.info("总体概率算法执行成功，中奖奖品ID: {}, 策略ID: {}", awardId, strategyId);

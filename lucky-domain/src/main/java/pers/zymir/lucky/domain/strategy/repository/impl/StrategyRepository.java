@@ -22,6 +22,11 @@ public class StrategyRepository implements IStrategyRepository {
     @Autowired
     private StrategyDetailMapper strategyDetailMapper;
 
+    /**
+     * 根据策略ID查询抽奖策略配置
+     * @param strategyId 策略ID
+     * @return 抽奖策略配置
+     */
     @Override
     public StrategyConfigDTO queryStrategyConfig(Long strategyId) {
         LambdaQueryWrapper<Strategy> strategyLambdaQueryWrapper = Wrappers.lambdaQuery(Strategy.class)
