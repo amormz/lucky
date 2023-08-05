@@ -52,13 +52,10 @@ public class MultiDrawAlgorithm implements IDrawAlgorithm {
     }
 
     private Long executeDraw(List<AwardRateDTO> awardRates) {
-
         // 中奖奖品ID
         Long awardId = null;
-
         // 随机数 作为抽奖种子
         int randomSeeds = generateRandomSeeds();
-
         // 游标
         int cursor = 0;
         for (AwardRateDTO awardRate : awardRates) {
@@ -67,10 +64,8 @@ public class MultiDrawAlgorithm implements IDrawAlgorithm {
                 awardId = awardRate.getAwardId();
                 break;
             }
-
             cursor += rateVal;
         }
-
         return awardId;
     }
 
