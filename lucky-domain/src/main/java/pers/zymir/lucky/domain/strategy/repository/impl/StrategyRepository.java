@@ -12,6 +12,8 @@ import pers.zymir.lucky.po.Strategy;
 import pers.zymir.lucky.po.StrategyDetail;
 
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Repository
 public class StrategyRepository implements IStrategyRepository {
@@ -24,6 +26,7 @@ public class StrategyRepository implements IStrategyRepository {
 
     /**
      * 根据策略ID查询抽奖策略配置
+     *
      * @param strategyId 策略ID
      * @return 抽奖策略配置
      */
@@ -41,5 +44,18 @@ public class StrategyRepository implements IStrategyRepository {
         strategyConfigDTO.setStrategy(strategy);
         strategyConfigDTO.setStrategyDetails(strategyDetails);
         return strategyConfigDTO;
+    }
+
+    @Override
+    public int deductionInventory(Long strategyId, Long awardId) {
+        return strategyDetailMapper.deductionInventory(strategyId, awardId);
+    }
+
+    @Override
+    public Set<Long> queryEmptyInventoryAwardIds(Long strategyId) {
+        LambdaQueryWrapper<StrategyDetail> queryWrapper = Wrappers.lambdaQuery(StrategyDetail.class)
+                .eq(StrategyDetail::getStrategyId, strategyId);
+        List<StrategyDetail> strategyDetails = strategyDetailMapper.selectList(queryWrapper);
+        return strategyDetails.stream().filter(detail -> detail.getResidualInventory() <= 0).map(StrategyDetail::getAwardId).collect(Collectors.toSet());
     }
 }

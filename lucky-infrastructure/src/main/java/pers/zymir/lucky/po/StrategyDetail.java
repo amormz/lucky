@@ -29,4 +29,9 @@ public class StrategyDetail extends BaseEntity {
      * 奖品中奖概率
      */
     private BigDecimal awardRate;
+
+    /**
+     * 奖品剩余库存数量
+     */
+    private Long residualInventory;
 }

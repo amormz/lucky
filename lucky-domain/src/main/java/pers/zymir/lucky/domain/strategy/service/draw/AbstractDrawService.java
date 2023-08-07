@@ -36,16 +36,16 @@ public abstract class AbstractDrawService implements IDrawService {
         // 2.查询空库存奖品/风控
         Set<Long> excludeAwardIds = queryExcludeAwardIds(strategyId);
 
-        // 3.执行抽奖算法
+        // 3.获取并且执行抽奖算法
         Strategy strategy = strategyConfigDTO.getStrategy();
         IDrawAlgorithm drawAlgorithm = DrawAlgorithmFactory.getDrawAlgorithmByCode(strategy.getStrategyMode());
         if (Objects.isNull(drawAlgorithm)) {
             log.warn("执行抽奖算法失败，未找到对应算法，模式：{}", strategy.getStrategyMode());
             throw new BusinessException(ResultCode.DRAW_ALGORITHM_NOT_FOUND);
         }
-        Long awardId = drawAlgorithm.randomDraw(strategyId, excludeAwardIds);
+        Long awardId = drawAlgorithm(strategyId, drawAlgorithm, excludeAwardIds);
 
-        // 4.封装结果
+        // 5.封装结果
         return buildDrawResult(awardId);
     }
 
@@ -55,11 +55,12 @@ public abstract class AbstractDrawService implements IDrawService {
         drawResult.setIsLucky(isLucky);
         drawResult.setAwardId(awardId);
         if (isLucky) {
-            // TODO 如果中奖 设置奖品名称
             drawResult.setAwardName("");
         }
         return drawResult;
     }
 
     protected abstract Set<Long> queryExcludeAwardIds(Long strategyId);
+
+    protected abstract Long drawAlgorithm(Long strategyId, IDrawAlgorithm drawAlgorithm, Set<Long> excludeAwardIds);
 }
