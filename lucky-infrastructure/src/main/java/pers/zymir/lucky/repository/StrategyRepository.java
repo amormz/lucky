@@ -1,5 +1,6 @@
-package pers.zymir.lucky.domain.strategy.repository.impl;
+package pers.zymir.lucky.repository;
 
+import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,8 @@ import org.springframework.stereotype.Repository;
 import pers.zymir.lucky.dao.StrategyDetailMapper;
 import pers.zymir.lucky.dao.StrategyMapper;
 import pers.zymir.lucky.domain.strategy.model.dto.StrategyConfigDTO;
+import pers.zymir.lucky.domain.strategy.model.dto.StrategyDTO;
+import pers.zymir.lucky.domain.strategy.model.dto.StrategyDetailDTO;
 import pers.zymir.lucky.domain.strategy.repository.IStrategyRepository;
 import pers.zymir.lucky.po.Strategy;
 import pers.zymir.lucky.po.StrategyDetail;
@@ -41,8 +44,8 @@ public class StrategyRepository implements IStrategyRepository {
         List<StrategyDetail> strategyDetails = strategyDetailMapper.selectList(strategyDetailLambdaQueryWrapper);
 
         StrategyConfigDTO strategyConfigDTO = new StrategyConfigDTO();
-        strategyConfigDTO.setStrategy(strategy);
-        strategyConfigDTO.setStrategyDetails(strategyDetails);
+        strategyConfigDTO.setStrategy(BeanUtil.toBean(strategy, StrategyDTO.class));
+        strategyConfigDTO.setStrategyDetails(BeanUtil.copyToList(strategyDetails, StrategyDetailDTO.class));
         return strategyConfigDTO;
     }
 

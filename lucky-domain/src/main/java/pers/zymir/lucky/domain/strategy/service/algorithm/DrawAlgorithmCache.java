@@ -1,7 +1,7 @@
 package pers.zymir.lucky.domain.strategy.service.algorithm;
 
 import pers.zymir.lucky.domain.strategy.model.dto.AwardRateDTO;
-import pers.zymir.lucky.po.StrategyDetail;
+import pers.zymir.lucky.domain.strategy.model.dto.StrategyDetailDTO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +16,7 @@ public class DrawAlgorithmCache {
         return STRATEGY_AWARD_RATE_MAPPING.get(strategyId);
     }
 
-    public static void checkAndInitAwardRate(Long strategyId, List<StrategyDetail> strategyDetails) {
+    public static void checkAndInitAwardRate(Long strategyId, List<StrategyDetailDTO> strategyDetails) {
         if (STRATEGY_AWARD_RATE_MAPPING.containsKey(strategyId)) {
             return;
         }
@@ -27,7 +27,7 @@ public class DrawAlgorithmCache {
         }
 
         List<AwardRateDTO> awardRates = new ArrayList<>(strategyDetails.size());
-        for (StrategyDetail strategyDetail : strategyDetails) {
+        for (StrategyDetailDTO strategyDetail : strategyDetails) {
             awardRates.add(new AwardRateDTO(strategyDetail.getAwardId(), strategyDetail.getAwardRate()));
         }
 

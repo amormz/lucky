@@ -1,4 +1,4 @@
-package pers.zymir.lucky.enums;
+package pers.zymir.lucky.constant;
 
 import lombok.AllArgsConstructor;
 

@@ -2,8 +2,8 @@ package pers.zymir.lucky.po;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import pers.zymir.lucky.enums.StrategyGrantTypeEnum;
-import pers.zymir.lucky.enums.StrategyModeEnum;
+import pers.zymir.lucky.constant.StrategyGrantTypeEnum;
+import pers.zymir.lucky.constant.StrategyModeEnum;
 
 @Data
 @EqualsAndHashCode(callSuper = true)

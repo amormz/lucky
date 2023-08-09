@@ -2,7 +2,7 @@ package pers.zymir.lucky.po;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import pers.zymir.lucky.enums.ActivityStateEnum;
+import pers.zymir.lucky.constant.ActivityStateEnum;
 
 @Data
 @EqualsAndHashCode(callSuper = true)

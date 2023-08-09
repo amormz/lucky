@@ -2,9 +2,9 @@ package pers.zymir.lucky.domain.strategy.service.algorithm.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import pers.zymir.lucky.constant.StrategyModeEnum;
 import pers.zymir.lucky.domain.strategy.repository.IStrategyRepository;
 import pers.zymir.lucky.domain.strategy.service.algorithm.IDrawAlgorithm;
-import pers.zymir.lucky.enums.StrategyModeEnum;
 
 import java.util.Set;
 

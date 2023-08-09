@@ -2,9 +2,9 @@ package pers.zymir.lucky.domain.award.service.distribution.impl;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import pers.zymir.lucky.constant.AwardTypeEnum;
 import pers.zymir.lucky.domain.award.model.req.AwardDistributionReq;
 import pers.zymir.lucky.domain.award.service.distribution.AbstractAwardDistributionService;
-import pers.zymir.lucky.enums.AwardTypeEnum;
 
 @Service
 @Slf4j

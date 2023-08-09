@@ -1,6 +1,5 @@
 package pers.zymir.lucky.domain.strategy.service.algorithm;
 
-import pers.zymir.lucky.enums.StrategyModeEnum;
 
 import java.util.Set;
 
@@ -21,7 +20,7 @@ public interface IDrawAlgorithm {
     /**
      * 获取当前算法类型code
      *
-     * @return {@link StrategyModeEnum#getCode()}
+     * @return {@link pers.zymir.lucky.constant.StrategyModeEnum#getCode()}
      */
     Integer getAlgorithmType();
 }

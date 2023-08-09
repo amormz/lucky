@@ -6,11 +6,11 @@ import cn.hutool.core.util.RandomUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import pers.zymir.lucky.constant.StrategyModeEnum;
 import pers.zymir.lucky.domain.strategy.model.dto.AwardRateDTO;
 import pers.zymir.lucky.domain.strategy.repository.IStrategyRepository;
 import pers.zymir.lucky.domain.strategy.service.algorithm.DrawAlgorithmCache;
 import pers.zymir.lucky.domain.strategy.service.algorithm.IDrawAlgorithm;
-import pers.zymir.lucky.enums.StrategyModeEnum;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
