@@ -5,7 +5,9 @@ import pers.zymir.basic.result.BusinessStatus;
 
 @AllArgsConstructor
 public enum ResultCode implements BusinessStatus {
-    DRAW_ALGORITHM_NOT_FOUND("50001", "未找到对应抽奖算法");
+    DRAW_ALGORITHM_NOT_FOUND("50001", "未找到对应抽奖算法"),
+
+    ACTIVITY_CREATE_FAIL("50002", "活动创建失败");
 
     private final String code;
 
