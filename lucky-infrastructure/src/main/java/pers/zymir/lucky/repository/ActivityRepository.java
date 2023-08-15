@@ -14,6 +14,7 @@ import pers.zymir.lucky.domain.activity.model.dto.StrategyDetailCreateDTO;
 import pers.zymir.lucky.domain.activity.repository.IActivityRepository;
 import pers.zymir.lucky.po.Activity;
 import pers.zymir.lucky.po.Award;
+import pers.zymir.lucky.po.Strategy;
 import pers.zymir.lucky.po.StrategyDetail;
 
 import java.util.List;
@@ -38,7 +39,9 @@ public class ActivityRepository implements IActivityRepository {
 
     @Override
     public long addStrategy(StrategyCreateDTO strategyCreateDTO) {
-        return 0;
+        Strategy strategy = BeanUtil.copyProperties(strategyCreateDTO, Strategy.class);
+        strategyMapper.insert(strategy);
+        return strategy.getStrategyId();
     }
 
     @Override
