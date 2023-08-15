@@ -8,7 +8,6 @@ import pers.zymir.lucky.constant.StrategyModeEnum;
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class Strategy extends BaseEntity {
-    private Long id;
 
     private Long strategyId;
 

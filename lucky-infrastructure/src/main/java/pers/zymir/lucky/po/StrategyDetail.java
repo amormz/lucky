@@ -8,7 +8,6 @@ import java.math.BigDecimal;
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class StrategyDetail extends BaseEntity {
-    private Long id;
 
     /**
      * 所属策略id

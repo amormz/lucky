@@ -8,8 +8,6 @@ import pers.zymir.lucky.constant.ActivityStateEnum;
 @EqualsAndHashCode(callSuper = true)
 public class Activity extends BaseEntity {
 
-    private Long id;
-
     private Long activityId;
 
     /**

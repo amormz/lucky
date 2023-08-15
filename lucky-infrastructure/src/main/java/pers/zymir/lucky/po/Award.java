@@ -6,7 +6,6 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class Award extends BaseEntity {
-    private Long id;
 
     private Long awardId;
 
