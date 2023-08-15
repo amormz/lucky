@@ -47,12 +47,16 @@ public class ActivityRepository implements IActivityRepository {
     @Override
     public void addAwards(List<AwardCreateDTO> awardCreateDTOList) {
         List<Award> awards = BeanUtil.copyToList(awardCreateDTOList, Award.class);
-        awardMapper.batchInsert(awards);
+        for (Award award : awards) {
+            awardMapper.insert(award);
+        }
     }
 
     @Override
     public void addStrategyDetail(List<StrategyDetailCreateDTO> strategyDetailCreateDTOList) {
         List<StrategyDetail> strategyDetails = BeanUtil.copyToList(strategyDetailCreateDTOList, StrategyDetail.class);
-        strategyDetailMapper.batchInsert(strategyDetails);
+        for (StrategyDetail strategyDetail : strategyDetails) {
+            strategyDetailMapper.insert(strategyDetail);
+        }
     }
 }
